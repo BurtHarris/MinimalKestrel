@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace MinimalKestrel
 {
@@ -10,6 +8,15 @@ namespace MinimalKestrel
     {
         static void Main(string[] args)
         {
+            var host = new WebHostBuilder()
+                .UseKestrel()
+                .Configure(app =>
+                {
+                    app.Run(async (context) => await context.Response.WriteAsync("Hi!"));
+                })
+                .Build();
+
+            host.Run();
         }
     }
 }
